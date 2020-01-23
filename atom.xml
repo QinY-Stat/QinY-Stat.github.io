@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Qin</title>
   
-  <subtitle>People Have Dreams.</subtitle>
+  <subtitle>People Have Dreams</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://github.com/QinY-Stat/"/>
