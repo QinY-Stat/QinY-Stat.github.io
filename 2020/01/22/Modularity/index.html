@@ -158,19 +158,20 @@ function activateLightMode(){
 <li>给$\gamma$设定一个初始值；  </li>
 <li>接着，根据给定的网络$G$、$\gamma$、社团数目$q$，根据模块度最优法寻找社团划分；  </li>
 <li>基于该社团划分，计算$\gamma$，获得新的模块度函数；  </li>
-<li>重复步骤2和步骤3，直到社团结构不再改变，获得正确$\gamma$的与社团划分。<h2 id="2-6-一些补充说明"><a href="#2-6-一些补充说明" class="headerlink" title="2.6 一些补充说明"></a>2.6 一些补充说明</h2>模块度最优法与极大似然估计法的等价说明了：</li>
+<li>重复步骤2和步骤3，直到社团结构不再改变，获得正确$\gamma$的与社团划分。</li>
 </ol>
+<h2 id="2-6-一些补充说明"><a href="#2-6-一些补充说明" class="headerlink" title="2.6 一些补充说明"></a>2.6 一些补充说明</h2><p>模块度最优法与极大似然估计法的等价说明了：</p>
 <ul>
-<li><p>随机块模型统一假设网络具有Poisson度分布，使得拟合网络与真实网络的近似性很差。相比之下，度修正模型适合任何度分布网络。如Bickel和Chen[13]的研究成果显示，在适当的条件下，模块度最优得到的社区结构是正确且无偏的。  </p>
+<li><p><strong>随机块模型统一假设网络具有Poisson度分布，使得拟合网络与真实网络的近似性很差。相比之下，度修正模型适合任何度分布网络。如Bickel和Chen[13]的研究成果显示，在适当的条件下，模块度最优得到的社区结构是正确且无偏的。</strong>  </p>
 </li>
-<li><p>$B = m\log \frac{{{\omega_{in}}}}{{{\omega_{out}}}}$的符号取决于$\omega_{in}$和$\omega_{out}$的大小。当${\omega_{in}} &gt; {\omega_{out}}$时，原结论成立；当${\omega_{in}} &lt; {\omega_{out}}$时，极大似然估计与模块度最小化法等价。  </p>
+<li><p><strong>$B = m\log \frac{{{\omega_{in}}}}{{{\omega_{out}}}}$的符号取决于$\omega_{in}$和$\omega_{out}$的大小。当${\omega_{in}} &gt; {\omega_{out}}$时，原结论成立；当${\omega_{in}} &lt; {\omega_{out}}$时，极大似然估计与模块度最小化法等价。</strong>  </p>
 </li>
-<li><p>Newman假设$\omega_{rs}$仅取两个值：$\omega_{in}$、$\omega_{out}$，这意味着任意社团内部、任意两个社团之间的连接程度相同，这与现实不符。故该指标虽然在理论上有所依托，但实际运用时还存在较大困难。  </p>
+<li><p><strong>Newman假设$\omega_{rs}$仅取两个值：$\omega_{in}$、$\omega_{out}$，这意味着任意社团内部、任意两个社团之间的连接程度相同，这与现实不符。故该指标虽然在理论上有所依托，但实际运用时还存在较大困难。</strong>  </p>
 </li>
-<li><p>关于Newman提出的$\gamma$计算方案的疑惑：在2.4节中，Newman令$B = m\log \frac{{{\omega_{in}}}}{{{\omega_{out}}}}$与$C = m\left( {\log {\omega_{out}} - {\omega_{out}}} \right)$时，作出的假设是“$\text{B}$与$C$是仅与$\omega_{in}$和$\omega_{out}$有关，与$\bf{g}$无关的常数”。但在2.5节计算参数时，$\gamma$的取值与$m_{in}$、$\sum\nolimits_r {\kappa_r^2}$两个数有关。其中$\kappa_{r}$代表社团$r$内部节点的度数之和。显然，不同的社团划分方案(即$\bf{g}$)对应着不同的$\sum\nolimits_r {\kappa_r^2}$值，与2.4中作出的结论矛盾。</p>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1></li>
+<li><p><strong>关于Newman提出的$\gamma$计算方案的疑惑：在2.4节中，Newman令$B = m\log \frac{{{\omega_{in}}}}{{{\omega_{out}}}}$与$C = m\left( {\log {\omega_{out}} - {\omega_{out}}} \right)$时，作出的假设是“$\text{B}$与$C$是仅与$\omega_{in}$和$\omega_{out}$有关，与$\bf{g}$无关的常数”。但在2.5节计算参数时，$\gamma$的取值与$m_{in}$、$\sum\nolimits_r {\kappa_r^2}$两个数有关。其中$\kappa_{r}$代表社团$r$内部节点的度数之和。显然，不同的社团划分方案(即$\bf{g}$)对应着不同的$\sum\nolimits_r {\kappa_r^2}$值，与2.4中作出的结论矛盾。</strong></p>
+</li>
 </ul>
-<ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li><a href="https://www.researchgate.net/publication/13660517_Collective_Dynamics_of_Small_World_Networks" target="_blank" rel="noopener">Watts DJ, Strogatz SH. Collective dynamics of ‘small-world’ networks. Nature, 1998,393(6638):440-442.</a>  </li>
 <li><a href="https://arxiv.org/abs/cond-mat/0112110" target="_blank" rel="noopener">Girvan M, Newman M E J. Community structure in social and biological networks. Proc. of the National Academy of Science, 2002,99(12):7821-7826.</a>  </li>
 <li><a href="https://arxiv.org/abs/cond-mat/0308217" target="_blank" rel="noopener">Newman M E J, Girvan M. Finding and evaluating community structure in networks. Phys. Rev. E, 2004,69(2):026113.</a>  </li>
