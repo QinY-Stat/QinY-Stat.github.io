@@ -87,8 +87,50 @@ function activateLightMode(){
 <p>Jeub、Sporns&amp;Fortunato[14]等人指出，最佳划分应当对应于分辨率参数取正确值的位置。但是在缺乏关于网络的先验知识的情况下，预先确定是很困难的，尽管Newman[11]于2015年证明了基于Q2优化的社区发现算法在特定情况下与极大似然估计方法等价，将模块度优化法与下列2种模型联系了起来，并提出了一种可能的计算方法。</p>
 <ul>
 <li>Stochastic Block Model (SBM)</li>
-<li>Planted Partition Model (PPM)<h1 id="Newman-2015"><a href="#Newman-2015" class="headerlink" title="Newman,2015"></a>Newman,2015</h1><h2 id="2-1-Stochastic-block-model"><a href="#2-1-Stochastic-block-model" class="headerlink" title="2.1  Stochastic block model"></a>2.1  Stochastic block model</h2><h3 id="2-1-1-模型及参数定义"><a href="#2-1-1-模型及参数定义" class="headerlink" title="2.1.1 模型及参数定义"></a>2.1.1 模型及参数定义</h3>参数 | 参数说明<br>:—: | :—:<br>$m$ | 网络中的边数<br>$n$ | 网络中的节点数<br>$q$ | 网络中划分的社区数<br>$\omega_{rs}$ | 社区$r$与社区$s$的连接概率<br>$\bf{g}$ | 一个$n$维向量(社区划分)<br>$\bf{A}$ | 一个$n\times n$的对称矩阵(邻接矩阵)<br>$\bf{\Omega}$ | 一个$q\times q$的对称矩阵(社团邻接矩阵)<br>随机块模型是一种生成随机图的模型。给定网络的先验信息$m$、$n$、$q$以及$\bf{\Omega}$和$\bf{g}$，将m条边随机分配到各节点之间形成一个随机网络。<h3 id="2-1-2-随机块模型的一些说明"><a href="#2-1-2-随机块模型的一些说明" class="headerlink" title="2.1.2 随机块模型的一些说明"></a>2.1.2 随机块模型的一些说明</h3>Newman指出，随机块模型生成随机网络的过程中，<strong>连接任意两个节点$i$和$j$的边的数量</strong>通常不是随机的，而是服从以为$\omega_{rs}$参数的Poisson分布，其中$r$、$s$分别为节点i和j所在的社团。至此，可以得出随机块模型假设网络$\textbf{A}$的连接的生成过程为：  </li>
+<li>Planted Partition Model (PPM)</li>
 </ul>
+<h1 id="Newman-2015"><a href="#Newman-2015" class="headerlink" title="Newman,2015"></a>Newman,2015</h1><h2 id="2-1-Stochastic-block-model"><a href="#2-1-Stochastic-block-model" class="headerlink" title="2.1  Stochastic block model"></a>2.1  Stochastic block model</h2><h3 id="2-1-1-模型及参数定义"><a href="#2-1-1-模型及参数定义" class="headerlink" title="2.1.1 模型及参数定义"></a>2.1.1 模型及参数定义</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">参数说明 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$m$</td>
+<td style="text-align:center">网络中的边数 </td>
+</tr>
+<tr>
+<td style="text-align:center">$n$</td>
+<td style="text-align:center">网络中的节点数 </td>
+</tr>
+<tr>
+<td style="text-align:center">$q$</td>
+<td style="text-align:center">网络中划分的社区数</td>
+</tr>
+<tr>
+<td style="text-align:center">$\omega_{rs}$</td>
+<td style="text-align:center">社区$r$与社区$s$的连接概率 </td>
+</tr>
+<tr>
+<td style="text-align:center">$\bf{g}$</td>
+<td style="text-align:center">一个$n$维向量(社区划分)</td>
+</tr>
+<tr>
+<td style="text-align:center">$\bf{A}$</td>
+<td style="text-align:center">一个$n\times n$的对称矩阵(邻接矩阵)</td>
+</tr>
+<tr>
+<td style="text-align:center">$\bf{\Omega}$</td>
+<td style="text-align:center">一个$q\times q$的对称矩阵(社团邻接矩阵)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>随机块模型是一种生成随机图的模型。给定网络的先验信息$m$、$n$、$q$以及$\bf{\Omega}$和$\bf{g}$，将m条边随机分配到各节点之间形成一个随机网络。</p>
+<h3 id="2-1-2-随机块模型的一些说明"><a href="#2-1-2-随机块模型的一些说明" class="headerlink" title="2.1.2 随机块模型的一些说明"></a>2.1.2 随机块模型的一些说明</h3><p>Newman指出，随机块模型生成随机网络的过程中，<strong>连接任意两个节点$i$和$j$的边的数量</strong>通常不是随机的，而是服从以为$\omega_{rs}$参数的Poisson分布，其中$r$、$s$分别为节点i和j所在的社团。至此，可以得出随机块模型假设网络$\textbf{A}$的连接的生成过程为：  </p>
 <ol>
 <li>将网络中每个节点$i$以概率$\theta_{k}$分配到第$k$个社区，$\theta$为一个$q$维向量，节点$i$的社区变量用$Z_i$表示:  <script type="math/tex; mode=display">{Z_i} \sim Mult\left( \theta  \right)</script></li>
 <li>每对节点产生连接$A_{ij}$的概率服从Poisson分布，即${A_{ij}} \sim Poisson\left( {{\omega_{{g_i}{g_j}}}} \right)$。  </li>
