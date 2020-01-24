@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://github.com/QinY-Stat/"/>
-  <updated>2020-01-23T19:38:39.475Z</updated>
+  <updated>2020-01-24T19:59:47.348Z</updated>
   <id>http://github.com/QinY-Stat/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Fiedler向量与社区发现的那些事儿</title>
+    <link href="http://github.com/QinY-Stat/2020/01/25/Fiedler%E5%90%91%E9%87%8F%E4%B8%8E%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"/>
+    <id>http://github.com/QinY-Stat/2020/01/25/Fiedler%E5%90%91%E9%87%8F%E4%B8%8E%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</id>
+    <published>2020-01-24T18:17:12.000Z</published>
+    <updated>2020-01-24T19:59:47.348Z</updated>
+    
+    <content type="html"><![CDATA[<p>最早与Fiedler向量(Fiedler Vector，FV)的接触是师父给的<a href="https://arxiv.org/pdf/1407.6071.pdf" target="_blank" rel="noopener">一篇论文</a>，该文作者提出了一种能够衡量删除某个节点或某条边对于网络的代数连通度的影响局部中心性，并提出了一个基于该中心性的社区发现算法。  </p><p>事实上，FV并非第一次出现在社区发现算法中。在图论中具有重要地位的谱聚类算法(Spectral Clustering)将社区发现算法约简为在网络中发现最小割集(Minimum Cut)的犯法。但为了避免划分出只包含1个节点的小社区，通常使用的两种割集准则为：</p><ul><li>比例割集准则 (Ratio Cut)</li><li>规范化割集准则 (Normalized Cut)  </li></ul><p>在这两种准则下，将一个网络二分的最优方案是一句各节点的Fiedler值的符号(+、-)来对节点进行分类。下面给出推导过程以及存在的疑问(推导过程来自<a href="https://arxiv.org/pdf/0711.0189.pdf" target="_blank" rel="noopener">文献</a>)：  </p><h2 id="Fiedler-Vector的有效性推导"><a href="#Fiedler-Vector的有效性推导" class="headerlink" title="Fiedler Vector的有效性推导"></a>Fiedler Vector的有效性推导</h2><h3 id="基于比例割集准则-Ratio-Cut-的推导"><a href="#基于比例割集准则-Ratio-Cut-的推导" class="headerlink" title="基于比例割集准则(Ratio Cut)的推导"></a>基于比例割集准则(Ratio Cut)的推导</h3><p>图$G=(V,E)$，令$\bf{D}$为$G$的度矩阵，$\bf{A}$为$G$的邻接矩阵，它们的元素分别为<br>$${D_{ij}} = \left\{ \begin{array}{l}{d_i}, \qquad i = j\\0, \qquad i \ne j\end{array} \right. $$<br>$${A_{ij}} = \left\{ \begin{array}{l}1, \qquad (i,j) \in E\\0, \qquad (i,j) \notin E\end{array} \right.$$<br>其中${d_i} = \sum\limits_{j = 1}^n {{A_{ij}}}$表示节点$i$的度(Degree)。  </p><p>$G$的Laplace矩阵$\bf{L}=\bf{D}-\bf{A}$，对$\forall \bf{x} \in {\bf{R}^n}$，有<br>$$\begin{array}{l}{\bf{x}^T}\bf{L}\bf{x} = {\bf{x}^T}\left( {\bf{D} - \bf{A}} \right)\bf{x} = {\bf{x}^T}\bf{D}\bf{x} - {\bf{x}^T}\bf{A}\bf{x} = \sum\limits_{i = 1}^n {{d_i}x_i^2}  - \sum\limits_{i,j = 1}^n {{a_{ij}}{x_i}{x_j}} \\{\rm{        }} = \frac{1}{2}\left[ {\sum\limits_{i = 1}^n {{d_i}x_i^2}  - 2\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n {{a_{ij}}{x_i}{x_j}} }  + \sum\limits_{i = 1}^n {{d_i}x_i^2} } \right]\\{\rm{        }} = \frac{1}{2}\left[ {\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n {{a_{ij}}x_i^2} }  - 2\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n {{a_{ij}}{x_i}{x_j}} }  + \sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n {{a_{ij}}x_j^2} } } \right]\\{\rm{        }} = \frac{1}{2}\sum\limits_{i = 1}^n {\sum\limits_{j = 1}^n {{a_{ij}}{{\left( {{x_i} - {x_j}} \right)}^2}} } \end{array}$$<br>假设将$G$分割为$k$个不相交的子网络$C_1,C_2,…,C_k$，下文将这些子网络称为$k$个社区(Community)，将连接不同社区的节点的边称为$G$的桥(Bridge)，则连接任意两个社区$C_n$、$C_m$的桥的数量$W\left( {{C_n},{C_m}} \right) = \sum\limits_{\scriptstylei \in {C_n}\hfill\atop\scriptstylej \in {C_m}\hfill} {{a_{ij}}}$，整个网络$G$的桥的数量$bridge\left( {{C_1},{C_2},...,{C_k}} \right) = \frac{1}{2}\sum\limits_{i = 1}^k {W\left( {{C_i},{\bar C_i}} \right)}$，其中$\bar C_i$称为$C_i$的补图，即${C_i} \cup {\bar C_i}{\rm{ = }}G$。此处只考虑$k=2$的情况，此时$bridge\left( {{C_1},{C_2}} \right) = W\left( {{C_1},{C_2}} \right)$。  </p><p>接下来，引入指示向量(Indicator Vector)的概念。将$G$分割为$k$个社区时，${f_i} = \left\{ {{f_{i1}},{f_{i2}},...,{f_{ik}}} \right\}$是个$n$维向量，当$k=2$时，$f_i$的元素为<br>$${f_{ij}} = \left\{ \begin{array}{l}\sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}} {\rm{  }},j \in {C_1}\\-\sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}} ,j \in {C_2}\end{array} \right.$$<br>则有<br>$$\begin{array}{l}{f^T}Lf = \frac{1}{2}\sum\limits_{i,j = 1}^n {{a_{ij}}{{\left( {{f_i} - {f_j}} \right)}^2}} \\{\rm{         }} = \frac{1}{2}\sum\limits_{\scriptstylei \in {C_1}\hfill\atop\scriptstylej \notin {C_1}\hfill}^{} {{a_{ij}}{{\left( {{f_i} - {f_j}} \right)}^2}}  + \frac{1}{2}\sum\limits_{\scriptstylei \in {C_2}\hfill\atop\scriptstylej \notin {C_2}\hfill}^{} {{a_{ij}}{{\left( {{f_i} - {f_j}} \right)}^2}} \\{\rm{         }} = \frac{1}{2}\sum\limits_{\scriptstylei \in {C_1}\hfill\atop\scriptstylej \notin {C_1}\hfill} {{a_{ij}}{{\left( {\sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  + \sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}} } \right)}^2}}  + \frac{1}{2}\sum\limits_{\scriptstylei \in {C_2}\hfill\atop\scriptstylej \notin {C_2}\hfill} {{a_{ij}}{{\left( { - \sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  - \sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}} } \right)}^2}} \\{\rm{         }} = \sum\limits_{\scriptstylei \in {C_1}\hfill\atop\scriptstylej \in {C_2}\hfill} {{a_{ij}}\left( {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}} + \frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}} + 2} \right)} \\{\rm{         }} = \sum\limits_{\scriptstylei \in {C_1}\hfill\atop\scriptstylej \in {C_2}\hfill} {{a_{ij}}\left( {\frac{{\left| {{C_2}} \right| + \left| {{C_1}} \right|}}{{\left| {{C_1}} \right|}} + \frac{{\left| {{C_1}} \right| + \left| {{C_2}} \right|}}{{\left| {{C_2}} \right|}}} \right)} \\{\rm{         }} = \left( {\left| {{C_1}} \right| + \left| {{C_2}} \right|} \right)\left( {\frac{1}{{\left| {{C_1}} \right|}} + \frac{1}{{\left| {{C_2}} \right|}}} \right)\sum\limits_{\scriptstylei \in {C_1}\hfill\atop\scriptstylej \in {C_2}\hfill} {{a_{ij}}} \\{\rm{         }} = n\left( {\frac{1}{{\left| {{C_1}} \right|}} + \frac{1}{{\left| {{C_2}} \right|}}} \right)bridge\left( {{C_1},{C_2}} \right)\end{array}$$<br>应当注意的是，$f$具有如下两个性质：  </p><ul><li>$$\sum\limits_{i = 1}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {{f_i}}  + \sum\limits_{i \in {C_2}}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {\sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}} }  - \sum\limits_{i \in {C_2}}^n {\sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}} }  = \left| {{C_1}} \right| \cdot \sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  - \left| {{C_2}} \right| \cdot \sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = 0$$；</li><li>$$\sum\limits_{i = 1}^n {f_i^2}  = \sum\limits_{i \in {C_1}}^n {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  + \sum\limits_{i \in {C_2}}^n {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = \left| {{C_2}} \right| + \left| {{C_1}} \right| = n$$，即$f \bot \textbf{1}$与$\sum\limits_i {f_i^2}  = n$(通常也会进行归一化，使得$\sum\limits_{i = 1}^n {f_i^2}=1$)。</li></ul><p>根据社区结构(Community Structure)的定义————“社区内节点联系紧密，社区间节点联系稀疏”，社区划分应当满足：</p><ul><li>最优的社区结构应使得$bridge\left( {{C_1},{C_2}} \right)$尽可能小；</li><li>为了避免出现只包含一个节点的小社区，应当控制两个社区的规模的差异不宜过大，即使得$\frac{1}{{\left| {{C_1}} \right|}} + \frac{1}{{\left| {{C_2}} \right|}}$尽可能小。</li></ul><p>综上所述，要找到最优的社区划分，即找到向量$f = \mathop {\arg \min }\limits_{f \bot \textbf{1},\sum\limits_i {f_i^2}  = n} {f^T}\textbf{L}f$。由于一个连通图$G$的$\textbf{L}$是个半正定矩阵，$r\left( \textbf{L} \right) = n - 1$，且$\textbf{L1}=0$，其中$\textbf{1} = \left( {1,1,…,1} \right)$不满足$f$的两个性质，所以$f$即为$\textbf{L}$的第二小特征值对应的特征向量，即Fiedler向量。  </p><h3 id="基于规范化割集准则-Normalized-Cut-的推导"><a href="#基于规范化割集准则-Normalized-Cut-的推导" class="headerlink" title="基于规范化割集准则(Normalized Cut)的推导"></a>基于规范化割集准则(Normalized Cut)的推导</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最早与Fiedler向量(Fiedler Vector，FV)的接触是师父给的&lt;a href=&quot;https://arxiv.org/pdf/1407.6071.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;一篇论文&lt;/a&gt;，该文作者提出了一种能够衡
+      
+    
+    </summary>
+    
+    
+    
+      <category term="复杂网络" scheme="http://github.com/QinY-Stat/tags/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>模块度(Modularity)发展历程</title>
