@@ -103,10 +103,11 @@ function activateLightMode(){
 {{\rm{         }} = n\left( {\frac{1}{{\left| {{C_1}} \right|}} + \frac{1}{{\left| {{C_2}} \right|}}} \right)bridge\left( {{C_1},{C_2}} \right)}
 \end{array}$$<br>应当注意的是，$f$具有如下两个性质：  </p>
 <ul>
-<li>$\sum\limits_{i = 1}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {{f_i}}  + \sum\limits_{i \in {C_2}}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {\sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}} }  - \sum\limits_{i \in {C_2}}^n {\sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}} }  = \left| {{C_1}} \right| \cdot \sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  - \left| {{C_2}} \right| \cdot \sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = 0$；</li>
-<li>$\sum\limits_{i = 1}^n {f_i^2}  = \sum\limits_{i \in {C_1}}^n {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  + \sum\limits_{i \in {C_2}}^n {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = \left| {{C_2}} \right| + \left| {{C_1}} \right| = n$，即$f \bot \textbf{1}$与$\sum\limits_i {f_i^2}  = n$(通常也会进行归一化，使得$\sum\limits_{i = 1}^n {f_i^2}=1$)。</li>
+<li>$\sum\limits_{i = 1}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {{f_i}}  + \sum\limits_{i \in {C_2}}^n {{f_i}}  = \sum\limits_{i \in {C_1}}^n {\sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}} }  - \sum\limits_{i \in {C_2}}^n {\sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}} }  = \left| {{C_1}} \right| \cdot \sqrt {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  - \left| {{C_2}} \right| \cdot \sqrt {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = 0$</li>
+<li>$\sum\limits_{i = 1}^n {f_i^2}  = \sum\limits_{i \in {C_1}}^n {\frac{{\left| {{C_2}} \right|}}{{\left| {{C_1}} \right|}}}  + \sum\limits_{i \in {C_2}}^n {\frac{{\left| {{C_1}} \right|}}{{\left| {{C_2}} \right|}}}  = \left| {{C_2}} \right| + \left| {{C_1}} \right| = n$
+</li>
 </ul>
-<p>根据社区结构(Community Structure)的定义————“社区内节点联系紧密，社区间节点联系稀疏”，社区划分应当满足：</p>
+<p>即$f \bot \textbf{1}$与$\sum\limits_i {f_i^2}  = n$(通常也会进行归一化，使得$\sum\limits_{i = 1}^n {f_i^2}=1$)。根据社区结构(Community Structure)的定义————“社区内节点联系紧密，社区间节点联系稀疏”，社区划分应当满足：</p>
 <ul>
 <li>最优的社区结构应使得$bridge\left( {{C_1},{C_2}} \right)$尽可能小；</li>
 <li>为了避免出现只包含一个节点的小社区，应当控制两个社区的规模的差异不宜过大，即使得$\frac{1}{{\left| {{C_1}} \right|}} + \frac{1}{{\left| {{C_2}} \right|}}$尽可能小。</li>
